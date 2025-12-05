@@ -99,3 +99,14 @@ public isolated class Chunker {
         return request;
     }
 }
+
+final Chunker? defaultChunker;
+
+# Creates a default chunker using the `defaultChunkerConfig` configuration.
+# + return - A `devant:Chunker` instance when the configuration is valid; otherwise an `Error`.
+public isolated function getDefaultChunker() returns Chunker|Error {
+    if defaultChunker is () {
+        return error("Default chunker configuration is missing or invalid. Please set `ballerinax.ai.devant.defaultChunkerConfig`.");
+    }
+    return <Chunker>defaultChunker;
+}

@@ -13,6 +13,7 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+import ballerina/ai;
 
 # Specifies the strategy to split text into chunks.
 public enum ChunkStrategy {
@@ -53,4 +54,21 @@ type ErrorData record {|
     string 'error;
     string message;
     int chunks_processed;
+|};
+
+# Represents chunker configuration of default devant chunker
+public type DefaultChunkerConfig record {|
+    # The base URL of the Devant AI service endpoint
+    string serviceUrl;
+    # The access token used to authenticate API requests
+    string accessToken;
+    # The maximum number of characters allowed per chunk
+    int maxChunkSize = 500;
+    # The maximum number of characters to reuse from the end of the previous
+    # chunk when creating the next one
+    int maxOverlapSize = 50;
+    # The strategy to use for chunking the document
+    ChunkStrategy strategy = RECURSIVE;
+    # Additional HTTP connection configurations
+    ai:ConnectionConfig connectionConfig?;
 |};
